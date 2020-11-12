@@ -53,22 +53,36 @@ const App = (props) => {
     setUserLetter(event.target.value);
   };
 
+  const toReload = () => {
+    window.location.reload();
+  };
+
   const onValidated = (props) => {
     console.log("début de la fonction onValidated");
     let wordHasBeenModified = false;
     let letterAlreadyUsed = false;
     const newWord = word.map((letterObject) => {
-      if (userLetter === letterObject.letter && letterObject.display === true) {
-        letterAlreadyUsed = true;
-      } else if (userLetter === letterObject.letter) {
+      if (userLetter === letterObject.letter) {
+        if (letterObject.display === true) {
+          console.log("possibilité 2 : lettre identique mais alreadyUsed");
+          letterAlreadyUsed = true;
+          return letterObject;
+        }
+
         wordHasBeenModified = true;
+        console.log("possibilité 1 : lettre identique et modifiée");
         return {
           letter: letterObject.letter,
           display: true,
         };
       }
+      console.log(
+        "possibilité 3 : lettre différente de celle de l'utilisateur"
+      );
+
       return letterObject;
     });
+
     console.log("newWord = ", newWord);
     setWord(newWord);
     if (wordHasBeenModified === false || letterAlreadyUsed === true) {
@@ -96,6 +110,7 @@ const App = (props) => {
         value={userLetter}
       />
       <button onClick={onValidated}>Valider</button>
+      <button onClick={toReload}>Recommencer</button>
     </div>
   );
 };
