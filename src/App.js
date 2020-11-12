@@ -56,8 +56,11 @@ const App = (props) => {
   const onValidated = (props) => {
     console.log("début de la fonction onValidated");
     let wordHasBeenModified = false;
+    let letterAlreadyUsed = false;
     const newWord = word.map((letterObject) => {
-      if (userLetter === letterObject.letter) {
+      if (userLetter === letterObject.letter && letterObject.display === true) {
+        letterAlreadyUsed = true;
+      } else if (userLetter === letterObject.letter) {
         wordHasBeenModified = true;
         return {
           letter: letterObject.letter,
@@ -68,7 +71,7 @@ const App = (props) => {
     });
     console.log("newWord = ", newWord);
     setWord(newWord);
-    if (wordHasBeenModified === false) {
+    if (wordHasBeenModified === false || letterAlreadyUsed === true) {
       const newNumber = number - 1;
       setNumber(newNumber);
     }
