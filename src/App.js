@@ -55,8 +55,10 @@ const App = (props) => {
 
   const onValidated = (props) => {
     console.log("début de la fonction onValidated");
+    let wordHasBeenModified = false;
     const newWord = word.map((letterObject) => {
-      if (letterObject.letter === userLetter) {
+      if (userLetter === letterObject.letter) {
+        wordHasBeenModified = true;
         return {
           letter: letterObject.letter,
           display: true,
@@ -66,11 +68,24 @@ const App = (props) => {
     });
     console.log("newWord = ", newWord);
     setWord(newWord);
+    if (wordHasBeenModified === false) {
+      const newNumber = number - 1;
+      setNumber(newNumber);
+    }
   };
 
   return (
     <div>
       Tentatives restante : {number}
+      <br></br>
+      {word.map((letterObject) => {
+        if (letterObject.display) {
+          return <div>{letterObject.letter}</div>;
+        } else {
+          return <div>_</div>;
+        }
+      })}
+      <br></br>
       <TextField
         label="Saisie :"
         onChange={handleChangeLetter}
