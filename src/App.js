@@ -66,10 +66,8 @@ const App = (props) => {
     let wordHasBeenModified = false;
     let letterAlreadyUsed = false;
     let letterFinded = false;
-    if (userLetter.length > 1) {
-      toast.warn(
-        "Attention ! Vous ne pouvez saisir qu'une seule lettre à la fois !"
-      );
+    if (userLetter.length < 1 || userLetter.length > 1) {
+      toast.warn("Attention ! Veuillez saisir qu'une seule lettre !");
     } else {
       const newWord = word.map((letterObject) => {
         if (userLetter === letterObject.letter) {
