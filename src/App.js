@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = (props) => {
   const initialWord = [
@@ -47,7 +49,9 @@ const App = (props) => {
 
   const [word, setWord] = useState(initialWord);
   const [number, setNumber] = useState(11);
+  const [count, setCount] = useState(0);
   const [userLetter, setUserLetter] = useState("");
+  const [displayMyButton, setDisplayMyButton] = useState(true);
 
   const handleChangeLetter = (event) => {
     setUserLetter(event.target.value);
@@ -61,6 +65,7 @@ const App = (props) => {
     console.log("début de la fonction onValidated");
     let wordHasBeenModified = false;
     let letterAlreadyUsed = false;
+    let letterFinded = false;
     const newWord = word.map((letterObject) => {
       if (userLetter === letterObject.letter) {
         if (letterObject.display === true) {
@@ -71,6 +76,7 @@ const App = (props) => {
 
         wordHasBeenModified = true;
         console.log("possibilité 1 : lettre identique et modifiée");
+        letterFinded = true;
         return {
           letter: letterObject.letter,
           display: true,
@@ -85,9 +91,22 @@ const App = (props) => {
 
     console.log("newWord = ", newWord);
     setWord(newWord);
+
     if (wordHasBeenModified === false || letterAlreadyUsed === true) {
       const newNumber = number - 1;
       setNumber(newNumber);
+    }
+    if (letterFinded === true) {
+      const newCount = count + 1;
+      setCount(newCount);
+    }
+    if (number === 1) {
+      toast.error("GameOver, vous n'avez plus de tentatives restante");
+      setDisplayMyButton(false);
+    }
+    if (count === 5) {
+      toast.success("Victoire, vous avez réussi a déchiffrer le mot !");
+      setDisplayMyButton(false);
     }
   };
 
@@ -109,8 +128,13 @@ const App = (props) => {
         placeholder="Entrez une Lettre"
         value={userLetter}
       />
-      <button onClick={onValidated}>Valider</button>
-      <button onClick={toReload}>Recommencer</button>
+      {displayMyButton === true && (
+        <button onClick={onValidated}>Valider</button>
+      )}
+      {displayMyButton === false && (
+        <button onClick={toReload}>Recommencer</button>
+      )}
+      <ToastContainer />
     </div>
   );
 };
