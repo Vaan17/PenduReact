@@ -10,6 +10,7 @@ import Looser from "./Looser";
 const history = createBrowserHistory();
 
 const App = () => {
+  console.log("travail utile");
   return (
     <div>
       <Router history={history}>
