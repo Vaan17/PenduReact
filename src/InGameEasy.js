@@ -120,6 +120,7 @@ const InGameEasy = (props) => {
   return (
     <div>
       Tentatives restante : {number}
+      <img src="./public/step1.jpg" alt="wrong1" />
       <br></br>
       {word.map((letterObject) => {
         if (letterObject.display) {
