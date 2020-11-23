@@ -60,10 +60,6 @@ const InGameEasy = (props) => {
     setUserLetter(event.target.value);
   };
 
-  const toReload = () => {
-    window.location.reload();
-  };
-
   const onValidated = (props) => {
     console.log("début de la fonction onValidated");
     let wordHasBeenModified = false;
@@ -108,11 +104,9 @@ const InGameEasy = (props) => {
       }
       if (number === 1) {
         history.push("/Looser");
-        window.location.reload();
       }
       if (count === 5) {
         history.push("/Winner");
-        window.location.reload();
       }
     }
   };

@@ -56,10 +56,6 @@ const InGameHard = (props) => {
     setUserLetter(event.target.value);
   };
 
-  const toReload = () => {
-    window.location.reload();
-  };
-
   const onValidated = (props) => {
     console.log("début de la fonction onValidated");
     let wordHasBeenModified = false;
@@ -104,11 +100,9 @@ const InGameHard = (props) => {
       }
       if (number === 1) {
         history.push("/Looser");
-        window.location.reload();
       }
       if (count === 8) {
         history.push("/Winner");
-        window.location.reload();
       }
     }
   };
