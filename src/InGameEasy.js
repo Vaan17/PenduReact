@@ -49,11 +49,7 @@ const InGameEasy = () => {
     },
   ];
 
-  const [newLetter, setNewLetter] = useState();
-  const [allUsedLetter, setAllUsedLetter] = useState();
-
-  const c = [allUsedLetter];
-  const d = c.concat([newLetter]);
+  const [allUsedLetter, setAllUsedLetter] = useState([]);
 
   const history = useHistory();
 
@@ -72,11 +68,13 @@ const InGameEasy = () => {
     let wordHasBeenModified = false;
     let letterAlreadyUsed = false;
     let letterFinded = false;
+    debugger;
     if (userLetter.length < 1 || userLetter.length > 1) {
       toast.warn("Attention ! Veuillez saisir qu'une seule lettre !");
     } else {
-      setNewLetter(userLetter);
-      setAllUsedLetter(d);
+      const newAllLetters = allUsedLetter.concat([userLetter]);
+      setAllUsedLetter(newAllLetters);
+
       const newWord = word.map((letterObject) => {
         if (userLetter === letterObject.letter) {
           if (letterObject.display === true) {
@@ -143,7 +141,7 @@ const InGameEasy = () => {
         <button onClick={onValidated}>Valider</button>
       )}
       <br />
-      Lettre déja saisie : {d}
+      Lettre déja saisie : {allUsedLetter}
       <ToastContainer />
     </div>
   );
