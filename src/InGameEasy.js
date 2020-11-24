@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createBrowserHistory } from "history";
+import { useHistory } from "react-router-dom";
+import steps from "./steps";
 
-const history = createBrowserHistory();
-
-const InGameEasy = (props) => {
+const InGameEasy = () => {
   const initialWord = [
     {
       letter: "T",
@@ -50,6 +49,14 @@ const InGameEasy = (props) => {
     },
   ];
 
+  const [newLetter, setNewLetter] = useState();
+  const [allUsedLetter, setAllUsedLetter] = useState();
+
+  const c = [allUsedLetter];
+  const d = c.concat([newLetter]);
+
+  const history = useHistory();
+
   const [word, setWord] = useState(initialWord);
   const [number, setNumber] = useState(11);
   const [count, setCount] = useState(0);
@@ -60,7 +67,7 @@ const InGameEasy = (props) => {
     setUserLetter(event.target.value);
   };
 
-  const onValidated = (props) => {
+  const onValidated = () => {
     console.log("début de la fonction onValidated");
     let wordHasBeenModified = false;
     let letterAlreadyUsed = false;
@@ -68,6 +75,8 @@ const InGameEasy = (props) => {
     if (userLetter.length < 1 || userLetter.length > 1) {
       toast.warn("Attention ! Veuillez saisir qu'une seule lettre !");
     } else {
+      setNewLetter(userLetter);
+      setAllUsedLetter(d);
       const newWord = word.map((letterObject) => {
         if (userLetter === letterObject.letter) {
           if (letterObject.display === true) {
@@ -114,7 +123,7 @@ const InGameEasy = (props) => {
   return (
     <div>
       Tentatives restante : {number}
-      <img src="./public/step1.jpg" alt="wrong1" />
+      <img src={steps[number]} alt="wrong" />
       <br></br>
       {word.map((letterObject) => {
         if (letterObject.display) {
@@ -133,9 +142,8 @@ const InGameEasy = (props) => {
       {displayMyButton === true && (
         <button onClick={onValidated}>Valider</button>
       )}
-      {displayMyButton === false && (
-        <button onClick={toReload}>Recommencer</button>
-      )}
+      <br />
+      Lettre déja saisie : {d}
       <ToastContainer />
     </div>
   );

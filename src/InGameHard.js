@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createBrowserHistory } from "history";
-
-const history = createBrowserHistory();
+import { useHistory } from "react-router-dom";
+import steps from "./steps";
 
 const InGameHard = (props) => {
   const initialWord = [
@@ -45,6 +44,8 @@ const InGameHard = (props) => {
       display: false,
     },
   ];
+
+  const history = useHistory();
 
   const [word, setWord] = useState(initialWord);
   const [number, setNumber] = useState(11);
@@ -89,6 +90,7 @@ const InGameHard = (props) => {
 
       console.log("newWord = ", newWord);
       setWord(newWord);
+      setUserLetter("");
 
       if (wordHasBeenModified === false || letterAlreadyUsed === true) {
         const newNumber = number - 1;
@@ -110,6 +112,7 @@ const InGameHard = (props) => {
   return (
     <div>
       Tentatives restante : {number}
+      <img src={steps[number]} alt="wrong" />
       <br></br>
       {word.map((letterObject) => {
         if (letterObject.display) {
@@ -128,9 +131,8 @@ const InGameHard = (props) => {
       {displayMyButton === true && (
         <button onClick={onValidated}>Valider</button>
       )}
-      {displayMyButton === false && (
-        <button onClick={toReload}>Recommencer</button>
-      )}
+      <br />
+      Lettre déja saisie :
       <ToastContainer />
     </div>
   );

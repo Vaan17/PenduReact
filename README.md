@@ -8,3 +8,4 @@
 4. display already used letter,
 5. prevent user from using same letter again
 6. user can enter lower and upper case letter
+7. only one component in game
