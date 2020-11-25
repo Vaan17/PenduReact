@@ -66,14 +66,14 @@ const InGameHard = (props) => {
     let letterFinded = false;
     if (userLetter.length < 1 || userLetter.length > 1) {
       toast.warn("Attention ! Veuillez saisir qu'une seule lettre !");
-    } else if (allUsedLetters.includes(userLetter)) {
+    } else if (allUsedLetters.includes(userLetter.toUpperCase())) {
       toast.error("Vous avez déja saisie cette lettre !");
     } else {
-      const newAllLetters = allUsedLetters.concat([userLetter]);
+      const newAllLetters = allUsedLetters.concat([userLetter.toUpperCase()]);
       setAllUsedLetters(newAllLetters);
 
       const newWord = word.map((letterObject) => {
-        if (userLetter === letterObject.letter) {
+        if (userLetter.toUpperCase() === letterObject.letter) {
           if (letterObject.display === true) {
             console.log("possibilité 2 : lettre identique mais alreadyUsed");
             letterAlreadyUsed = true;
@@ -133,7 +133,7 @@ const InGameHard = (props) => {
         label="Saisie :"
         onChange={handleChangeLetter}
         placeholder="Entrez une Lettre"
-        value={userLetter}
+        value={userLetter.toUpperCase()}
       />
       {displayMyButton === true && (
         <button onClick={onValidated}>Valider</button>
