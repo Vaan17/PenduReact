@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom";
 import steps from "./steps";
 
-const InGameEasy = () => {
+const InGame = (props) => {
   const initialWord = [
     {
       letter: "T",
@@ -49,6 +49,11 @@ const InGameEasy = () => {
     },
   ];
 
+  if (props.difficulty === "Hard") {
+    initialWord[0].display = false;
+    initialWord[9].display = false;
+  }
+
   const [allUsedLetters, setAllUsedLetters] = useState([]);
 
   const history = useHistory();
@@ -57,7 +62,7 @@ const InGameEasy = () => {
   const [number, setNumber] = useState(11);
   const [count, setCount] = useState(0);
   const [userLetter, setUserLetter] = useState("");
-  const [displayMyButton, setDisplayMyButton] = useState(true);
+  const [help, setHelp] = useState(false);
 
   const handleChangeLetter = (event) => {
     setUserLetter(event.target.value);
@@ -123,6 +128,8 @@ const InGameEasy = () => {
 
   return (
     <div>
+      Difficulté choisie : {props.difficulty}
+      <br></br>
       Tentatives restante : {number}
       <img src={steps[number]} alt="wrong" />
       <br></br>
@@ -140,9 +147,7 @@ const InGameEasy = () => {
         placeholder="Entrez une Lettre"
         value={userLetter.toUpperCase()}
       />
-      {displayMyButton === true && (
-        <button onClick={onValidated}>Valider</button>
-      )}
+      <button onClick={onValidated}>Valider</button>
       <br />
       Lettre déja saisie : {allUsedLetters}
       <ToastContainer />
@@ -150,4 +155,4 @@ const InGameEasy = () => {
   );
 };
 
-export default InGameEasy;
+export default InGame;

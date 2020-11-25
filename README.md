@@ -9,3 +9,4 @@
 5. prevent user from using same letter again
 6. user can enter lower and upper case letter
 7. only one component in game
+8. user choose the word to find into the Menu

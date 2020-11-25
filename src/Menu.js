@@ -1,16 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-const Menu = () => {
+const Menu = (props) => {
+  const history = useHistory();
+
+  const difficultyEasy = () => {
+    props.setDifficulty("Easy");
+    history.push("/InGame");
+  };
+
+  const difficultyHard = () => {
+    props.setDifficulty("Hard");
+    history.push("/InGame");
+  };
+
   return (
     <div>
       Selectionnez le niveau de difficulté
-      <Link to="/InGameEasy">
-        <button>Facile</button>
-      </Link>
-      <Link to="/InGameHard">
-        <button>Difficile</button>
-      </Link>
+      <button onClick={difficultyEasy}>Facile</button>
+      <button onClick={difficultyHard}>Difficile</button>
     </div>
   );
 };

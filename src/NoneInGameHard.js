@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom";
 import steps from "./steps";
 
-const InGameHard = (props) => {
+const NoneInGameHard = (props) => {
   const initialWord = [
     {
       letter: "M",
@@ -145,4 +145,4 @@ const InGameHard = (props) => {
   );
 };
 
-export default InGameHard;
+export default NoneInGameHard;
