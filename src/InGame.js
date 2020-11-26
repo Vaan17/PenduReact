@@ -6,63 +6,14 @@ import { useHistory } from "react-router-dom";
 import steps from "./steps";
 
 const InGame = (props) => {
-  const initialWord = [
-    {
-      letter: "T",
-      display: true,
-    },
-    {
-      letter: "E",
-      display: false,
-    },
-    {
-      letter: "L",
-      display: false,
-    },
-    {
-      letter: "E",
-      display: false,
-    },
-    {
-      letter: "V",
-      display: false,
-    },
-    {
-      letter: "I",
-      display: false,
-    },
-    {
-      letter: "S",
-      display: false,
-    },
-    {
-      letter: "I",
-      display: false,
-    },
-    {
-      letter: "O",
-      display: false,
-    },
-    {
-      letter: "N",
-      display: true,
-    },
-  ];
-
-  if (props.difficulty === "Hard") {
-    initialWord[0].display = false;
-    initialWord[9].display = false;
-  }
-
   const [allUsedLetters, setAllUsedLetters] = useState([]);
 
   const history = useHistory();
 
-  const [word, setWord] = useState(initialWord);
+  const [word, setWord] = useState(props.initialWord);
   const [number, setNumber] = useState(11);
   const [count, setCount] = useState(0);
   const [userLetter, setUserLetter] = useState("");
-  const [help, setHelp] = useState(false);
 
   const handleChangeLetter = (event) => {
     setUserLetter(event.target.value);
@@ -120,9 +71,17 @@ const InGame = (props) => {
       if (number === 1) {
         history.push("/Looser");
       }
-      if (count === 5) {
-        history.push("/Winner");
-      }
+      // debugger;
+      // for (let letters of props.initialWord) {
+      //   if (letters.display === true) {
+      //     setCount(count + 1);
+      //   }
+      // }
+      // if (count === word.length) {
+      //   history.push("/Winner");
+      // } else {
+      //   setCount(0);
+      // }
     }
   };
 

@@ -15,17 +15,24 @@ const history = createBrowserHistory();
 
 const App = () => {
   console.log("travail utile");
+
+  const [initialWord, setInitialWord] = useState([]);
   const [difficulty, setDifficulty] = useState(undefined);
+
   return (
     <div>
       <Router history={history}>
         <div>
           <Switch>
             <Route exact path="/">
-              <Menu setDifficulty={setDifficulty} />
+              <Menu
+                setInitialWord={setInitialWord}
+                initialWord={initialWord}
+                setDifficulty={setDifficulty}
+              />
             </Route>
             <Route exact path="/InGame">
-              <InGame difficulty={difficulty} />
+              <InGame initialWord={initialWord} difficulty={difficulty} />
             </Route>
             <Route exact path="/Winner">
               <Winner />
