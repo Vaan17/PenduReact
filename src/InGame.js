@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,12 +12,25 @@ const InGame = (props) => {
 
   const [word, setWord] = useState(props.initialWord);
   const [number, setNumber] = useState(11);
-  const [count, setCount] = useState(0);
   const [userLetter, setUserLetter] = useState("");
 
   const handleChangeLetter = (event) => {
     setUserLetter(event.target.value);
   };
+
+  useEffect(() => {
+    console.log(word);
+    let winner = true;
+    word.forEach((letters) => {
+      console.log("Verification");
+      if (letters.display === false) {
+        winner = false;
+      }
+    });
+    if (winner === true) {
+      history.push("/Winner");
+    }
+  }, [word]);
 
   const onValidated = () => {
     console.log("début de la fonction onValidated");
@@ -64,24 +77,10 @@ const InGame = (props) => {
         const newNumber = number - 1;
         setNumber(newNumber);
       }
-      if (letterFinded === true) {
-        const newCount = count + 1;
-        setCount(newCount);
-      }
+
       if (number === 1) {
         history.push("/Looser");
       }
-      // debugger;
-      // for (let letters of props.initialWord) {
-      //   if (letters.display === true) {
-      //     setCount(count + 1);
-      //   }
-      // }
-      // if (count === word.length) {
-      //   history.push("/Winner");
-      // } else {
-      //   setCount(0);
-      // }
     }
   };
 
